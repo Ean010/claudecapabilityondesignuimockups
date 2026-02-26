@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChromePhone OS — Concept UI</title>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;700&family=Google+Sans+Display:wght@400;700&family=Roboto+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --chrome-blue: #1a73e8;
+    --chrome-red: #ea4335;
+    --chrome-yellow: #fbbc04;
+    --chrome-green: #34a853;
+    --surface: #f8f9fa;
+    --surface2: #ffffff;
+    --on-surface: #202124;
+    --on-surface-2: #5f6368;
+    --shelf-bg: rgba(255,255,255,0.85);
+    --shadow: 0 2px 10px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.10);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1a1a2e;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 40px 20px;
+    font-family: 'Google Sans', 'Segoe UI', sans-serif;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+
+  .page-title {
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: -30px;
+    font-family: 'Roboto Mono', monospace;
+  }
+
+  /* ===== PHONE FRAME ===== */
+  .phone-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .screen-label {
+    color: rgba(255,255,255,0.45);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: 'Roboto Mono', monospace;
+  }
+
+  .phone {
+    width: 360px;
+    height: 740px;
+    background: #0d0d14;
+    border-radius: 44px;
+    padding: 12px;
+    box-shadow: 
+      0 0 0 1px rgba(255,255,255,0.07),
+      0 30px 80px rgba(0,0,0,0.5),
+      inset 0 1px 0 rgba(255,255,255,0.05);
+    position: relative;
+  }
+
+  .phone::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 28px;
+    background: #0d0d14;
+    border-radius: 0 0 16px 16px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .camera-pill {
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90px;
+    height: 20px;
+    background: #111;
+    border-radius: 10px;
+    z-index: 101;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .camera-dot {
+    width: 10px; height: 10px;
+    background: #1a1a24;
+    border-radius: 50%;
+    border: 1.5px solid #2a2a34;
+    position: relative;
+  }
+
+  .camera-dot::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 4px; height: 4px;
+    background: #2a2a40;
+    border-radius: 50%;
+  }
+
+  .screen {
+    width: 100%;
+    height: 100%;
+    border-radius: 34px;
+    overflow: hidden;
+    position: relative;
+    background: #f1f3f4;
+  }
+
+  /* ===== SCREENS ===== */
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0; left: 0;
+  }
+
+  /* ==============================
+     SCREEN 1: LOCK SCREEN
+  ============================== */
+  #lockscreen {
+    background: linear-gradient(160deg, #1557a0 0%, #0d3a6e 40%, #071d3a 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 80px;
+  }
+
+  .ls-status-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    padding-top: 10px;
+  }
+
+  .ls-time-big {
+    font-size: 72px;
+    font-weight: 300;
+    color: #fff;
+    letter-spacing: -3px;
+    line-height: 1;
+    margin-top: 10px;
+  }
+
+  .ls-date {
+    color: rgba(255,255,255,0.75);
+    font-size: 16px;
+    margin-top: 8px;
+    font-weight: 400;
+  }
+
+  .ls-notifications {
+    margin-top: 40px;
+    width: 100%;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ls-notif-card {
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .notif-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .notif-text { flex: 1; }
+  .notif-title { color: #fff; font-size: 13px; font-weight: 500; }
+  .notif-body { color: rgba(255,255,255,0.65); font-size: 12px; margin-top: 2px; }
+  .notif-time { color: rgba(255,255,255,0.45); font-size: 11px; }
+
+  .ls-chrome-logo {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.5;
+  }
+
+  .chrome-ring {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, #ea4335 0deg 120deg, #fbbc04 120deg 240deg, #34a853 240deg 360deg);
+    position: relative;
+  }
+
+  .chrome-ring::after {
+    content: '';
+    position: absolute;
+    top: 8px; left: 8px; right: 8px; bottom: 8px;
+    background: #1557a0;
+    border-radius: 50%;
+  }
+
+  .ls-swipe-hint {
+    position: absolute;
+    bottom: 40px;
+    color: rgba(255,255,255,0.4);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .swipe-line {
+    width: 40px; height: 3px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+  }
+
+  /* ==============================
+     SCREEN 2: HOME / LAUNCHER
+  ============================== */
+  #homescreen {
+    background: linear-gradient(135deg, #e8f0fe 0%, #f1f3f4 60%, #e6f4ea 100%);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hs-status-bar {
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    padding-top: 12px;
+  }
+
+  .status-icons {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: #202124;
+  }
+
+  .status-icon {
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* Google Search Bar */
+  .google-search-bar {
+    margin: 8px 20px 0;
+    height: 48px;
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 12px;
+  }
+
+  .g-logo {
+    font-size: 18px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #4285f4, #ea4335, #fbbc04, #34a853);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .search-placeholder {
+    flex: 1;
+    color: #9aa0a6;
+    font-size: 14px;
+  }
+
+  .mic-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, #4285f4, #1a73e8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: white;
+  }
+
+  /* Widget Area */
+  .widget-area {
+    padding: 16px 20px 0;
+    display: flex;
+    gap: 12px;
+  }
+
+  .widget-weather {
+    flex: 1;
+    background: linear-gradient(135deg, #4285f4, #1a73e8);
+    border-radius: 20px;
+    padding: 16px;
+    color: white;
+    box-shadow: var(--shadow);
+  }
+
+  .widget-title { font-size: 11px; opacity: 0.8; text-transform: uppercase; letter-spacing: 0.08em; }
+  .widget-main { font-size: 42px; font-weight: 300; line-height: 1; margin-top: 4px; }
+  .widget-sub { font-size: 12px; opacity: 0.8; margin-top: 4px; }
+
+  .widget-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 120px;
+  }
+
+  .widget-small {
+    background: #fff;
+    border-radius: 16px;
+    padding: 12px 14px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .ws-icon { font-size: 20px; }
+  .ws-val { font-size: 18px; font-weight: 600; color: #202124; }
+  .ws-label { font-size: 10px; color: #9aa0a6; }
+
+  /* App Grid */
+  .app-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    padding: 20px 20px 0;
+    margin-top: 4px;
+  }
+
+  .app-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+  }
+
+  .app-icon-img {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .app-icon-img::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 50%;
+    background: rgba(255,255,255,0.2);
+    border-radius: 14px 14px 0 0;
+  }
+
+  .app-name { font-size: 11px; color: #202124; text-align: center; font-weight: 500; }
+
+  /* Shelf / Dock */
+  .shelf {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 90px;
+    background: var(--shelf-bg);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 20px;
+    padding-bottom: 10px;
+  }
+
+  .shelf-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .shelf-icon-img {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shelf-dot {
+    width: 4px; height: 4px;
+    background: var(--chrome-blue);
+    border-radius: 2px;
+  }
+
+  /* ==============================
+     SCREEN 3: CHROME BROWSER
+  ============================== */
+  #browserscreen {
+    background: #f1f3f4;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .browser-status {
+    height: 40px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    padding-top: 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  /* Tab bar */
+  .tab-bar {
+    background: #fff;
+    height: 42px;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 8px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    gap: 2px;
+  }
+
+  .tab {
+    height: 34px;
+    border-radius: 8px 8px 0 0;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    position: relative;
+  }
+
+  .tab.active {
+    background: #f1f3f4;
+    color: #202124;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-bottom: none;
+  }
+
+  .tab.inactive {
+    background: transparent;
+    color: #9aa0a6;
+  }
+
+  .tab-fav { font-size: 12px; }
+
+  .tab-close {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: transparent;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px;
+    color: #9aa0a6;
+  }
+
+  /* Omnibox */
+  .omnibox {
+    background: #fff;
+    padding: 8px 16px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .omnibox-inner {
+    background: #f1f3f4;
+    border-radius: 20px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    gap: 8px;
+  }
+
+  .omnibox-url {
+    font-size: 13px;
+    color: #202124;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .url-secure { color: var(--chrome-green); font-size: 12px; }
+  .url-origin { font-weight: 500; }
+  .url-path { color: #9aa0a6; }
+
+  /* Browser content */
+  .browser-content {
+    flex: 1;
+    overflow: hidden;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .webpage-mock {
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .wm-hero {
+    background: linear-gradient(135deg, #1a73e8, #0d47a1);
+    border-radius: 16px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .wm-hero::before {
+    content: '🌐';
+    position: absolute;
+    top: 20px; right: 20px;
+    font-size: 60px;
+    opacity: 0.15;
+  }
+
+  .wm-hero-tag { font-size: 11px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em; }
+  .wm-hero-title { font-size: 22px; font-weight: 700; color: #fff; margin-top: 4px; }
+
+  .wm-body { display: flex; flex-direction: column; gap: 8px; }
+
+  .text-block {
+    height: 12px;
+    background: #e8eaed;
+    border-radius: 6px;
+  }
+
+  .text-block.short { width: 60%; }
+  .text-block.medium { width: 85%; }
+  .text-block.full { width: 100%; }
+
+  .content-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    border: 1px solid #e8eaed;
+  }
+
+  .cc-img {
+    width: 48px; height: 48px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .cc-lines { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .cc-title { height: 12px; background: #dadce0; border-radius: 6px; }
+  .cc-sub { height: 10px; background: #e8eaed; border-radius: 5px; width: 70%; }
+
+  /* Bottom nav */
+  .browser-bottom-bar {
+    height: 52px;
+    background: #fff;
+    border-top: 1px solid #e8eaed;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 8px;
+  }
+
+  .bb-btn {
+    width: 40px; height: 40px;
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    color: #5f6368;
+  }
+
+  .tab-count {
+    width: 28px; height: 28px;
+    border: 2px solid #5f6368;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #5f6368;
+  }
+
+  /* ==============================
+     SCREEN 4: QUICK SETTINGS
+  ============================== */
+  #quicksettings {
+    background: linear-gradient(160deg, #1557a0 0%, #0d3a6e 60%, #071d3a 100%);
+    display: flex;
+    flex-direction: column;
+    padding: 50px 16px 20px;
+    gap: 16px;
+  }
+
+  .qs-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .qs-time { font-size: 48px; font-weight: 300; color: #fff; letter-spacing: -2px; }
+  .qs-date { font-size: 14px; color: rgba(255,255,255,0.7); margin-top: -4px; }
+
+  .qs-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--chrome-blue), var(--chrome-green));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    color: white;
+    font-weight: 600;
+  }
+
+  .qs-tiles {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .qs-tile {
+    aspect-ratio: 1;
+    background: rgba(255,255,255,0.15);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .qs-tile.active {
+    background: rgba(255,255,255,0.9);
+  }
+
+  .qs-tile.active .tile-icon { color: var(--chrome-blue); }
+  .qs-tile.active .tile-label { color: #202124; }
+
+  .tile-icon { font-size: 20px; color: rgba(255,255,255,0.9); }
+  .tile-label { font-size: 10px; color: rgba(255,255,255,0.7); font-weight: 500; }
+
+  /* Brightness slider */
+  .qs-slider-group {
+    background: rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .slider-icon { font-size: 16px; color: rgba(255,255,255,0.8); }
+
+  .slider-track {
+    flex: 1;
+    height: 4px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+    position: relative;
+  }
+
+  .slider-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: #fff;
+    position: absolute;
+    top: 0; left: 0;
+  }
+
+  .slider-thumb {
+    width: 18px; height: 18px;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+
+  /* Notifications in QS */
+  .qs-notifications {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .qs-notif-header {
+    color: rgba(255,255,255,0.6);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0 2px;
+  }
+
+  .qs-notif {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 12px 14px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .qn-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .qn-content { flex: 1; }
+  .qn-title { color: #fff; font-size: 13px; font-weight: 500; }
+  .qn-body { color: rgba(255,255,255,0.6); font-size: 12px; }
+
+  .qs-chrome-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    opacity: 0.3;
+    margin-top: auto;
+    padding-bottom: 10px;
+  }
+
+  .chrome-ring-small {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, #ea4335 0deg 120deg, #fbbc04 120deg 240deg, #34a853 240deg 360deg);
+    position: relative;
+  }
+
+  .chrome-ring-small::after {
+    content: '';
+    position: absolute;
+    top: 5px; left: 5px; right: 5px; bottom: 5px;
+    background: #0d3a6e;
+    border-radius: 50%;
+  }
+
+  .chrome-wordmark { font-size: 13px; color: #fff; letter-spacing: 0.05em; }
+
+  /* ==============================
+     STATUS BAR COMMON
+  ============================== */
+  .status-txt { font-size: 12px; font-weight: 500; }
+  .status-time { font-size: 12px; font-weight: 600; }
+
+  /* Battery indicator */
+  .batt {
+    display: flex; align-items: center; gap: 2px;
+  }
+  .batt-body {
+    width: 20px; height: 10px;
+    border: 1.5px solid currentColor;
+    border-radius: 2px;
+    position: relative;
+  }
+  .batt-body::after {
+    content: '';
+    position: absolute;
+    top: 2px; right: -4px;
+    width: 2px; height: 6px;
+    background: currentColor;
+    border-radius: 0 1px 1px 0;
+  }
+  .batt-fill {
+    position: absolute;
+    top: 1.5px; left: 1.5px; bottom: 1.5px;
+    width: 65%;
+    background: currentColor;
+    border-radius: 1px;
+  }
+
+  /* Wifi/Signal bars */
+  .signal-bars {
+    display: flex; align-items: flex-end; gap: 1.5px; height: 12px;
+  }
+  .bar { width: 3px; background: currentColor; border-radius: 1px; }
+  .bar-1 { height: 30%; opacity: 1; }
+  .bar-2 { height: 55%; opacity: 1; }
+  .bar-3 { height: 80%; opacity: 1; }
+  .bar-4 { height: 100%; opacity: 0.3; }
+
+  /* ==============================
+     OVERVIEW SCREEN (Multitasking)
+  ============================== */
+  #overviewscreen {
+    background: #1a1a2e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 16px 0;
+    gap: 16px;
+  }
+
+  .overview-label {
+    color: rgba(255,255,255,0.5);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    align-self: flex-start;
+  }
+
+  .overview-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .ov-card {
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .ov-card-header {
+    height: 40px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    gap: 8px;
+    border-bottom: 1px solid #f1f3f4;
+  }
+
+  .ov-favicon { font-size: 16px; }
+  .ov-title { font-size: 13px; font-weight: 500; color: #202124; flex: 1; }
+  .ov-close {
+    width: 22px; height: 22px;
+    background: #f1f3f4;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    color: #9aa0a6;
+  }
+
+  .ov-preview {
+    height: 100px;
+    background: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 14px;
+    gap: 6px;
+  }
+
+  .ov-tb { height: 8px; background: #e8eaed; border-radius: 4px; }
+  .ov-img {
+    height: 48px;
+    border-radius: 8px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+
+  .ov-dock {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 80px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 20px;
+    padding-bottom: 8px;
+  }
+
+  .ov-dock-icon {
+    width: 46px; height: 46px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    background: rgba(255,255,255,0.15);
+  }
+
+  /* Helpers */
+  .flex { display: flex; }
+  .flex-col { flex-direction: column; }
+  .items-center { align-items: center; }
+  .gap-4 { gap: 4px; }
+  .gap-8 { gap: 8px; }
+  .text-white { color: #fff; }
+  .text-sm { font-size: 12px; }
+  .opacity-70 { opacity: 0.7; }
+  .ml-auto { margin-left: auto; }
+
+  /* ==============================
+     LEGEND / DESCRIPTION PANEL
+  ============================== */
+  .legend {
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 30px;
+  }
+
+  .legend-title {
+    color: #fff;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+
+  .legend-sub {
+    color: rgba(255,255,255,0.4);
+    font-size: 12px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .legend-item {
+    border-left: 3px solid;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 0 10px 10px 0;
+  }
+
+  .li-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+    font-family: 'Roboto Mono', monospace;
+  }
+
+  .li-desc { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+
+  .chrome-colors-demo {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .cc-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+  }
+
+  /* Bottom nav home indicator */
+  .home-indicator {
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px; height: 4px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 2px;
+  }
+
+  .home-indicator.light {
+    background: rgba(255,255,255,0.3);
+  }
+
+  /* Row layout for phones */
+  .phones-row {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-title">ChromePhone OS — Speculative UI/UX Concept · 2024</div>
+
+<div class="phones-row">
+
+  <!-- PHONE 1: Lock Screen -->
+  <div class="phone-wrap">
+    <div class="phone">
+      <div class="camera-pill">
+        <div class="camera-dot"></div>
+      </div>
+      <div class="screen">
+        <div class="phone-screen" id="lockscreen">
+          <!-- Status -->
+          <div class="ls-status-bar">
+            <span class="status-time text-white" style="font-size:13px;">9:41</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div class="signal-bars" style="color:white;">
+                <div class="bar bar-1"></div>
+                <div class="bar bar-2"></div>
+                <div class="bar bar-3"></div>
+                <div class="bar bar-4"></div>
+              </div>
+              <span style="color:white;font-size:11px;">5G</span>
+              <div class="batt" style="color:white;">
+                <div class="batt-body"><div class="batt-fill"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Big time -->
+          <div class="ls-time-big">9:41</div>
+          <div class="ls-date">Thursday, February 26</div>
+
+          <!-- Notifications -->
+          <div class="ls-notifications">
+            <div class="ls-notif-card">
+              <div class="notif-icon" style="background:rgba(66,133,244,0.3);">📧</div>
+              <div class="notif-text">
+                <div class="notif-title">Gmail</div>
+                <div class="notif-body">New message from Sarah Chen</div>
+              </div>
+              <div class="notif-time">2m</div>
+            </div>
+            <div class="ls-notif-card">
+              <div class="notif-icon" style="background:rgba(52,168,83,0.3);">📅</div>
+              <div class="notif-text">
+                <div class="notif-title">Google Calendar</div>
+                <div class="notif-body">Design Review in 15 minutes</div>
+              </div>
+              <div class="notif-time">5m</div>
+            </div>
+            <div class="ls-notif-card">
+              <div class="notif-icon" style="background:rgba(251,188,4,0.25);">🔔</div>
+              <div class="notif-text">
+                <div class="notif-title">Chrome</div>
+                <div class="notif-body">Download complete: report.pdf</div>
+              </div>
+              <div class="notif-time">12m</div>
+            </div>
+          </div>
+
+          <!-- Chrome logo -->
+          <div class="ls-chrome-logo">
+            <div class="chrome-ring"></div>
+          </div>
+
+          <!-- Swipe hint -->
+          <div class="ls-swipe-hint">
+            <div class="swipe-line"></div>
+            Swipe up to unlock
+          </div>
+        </div>
+        <div class="home-indicator light"></div>
+      </div>
+    </div>
+    <div class="screen-label">01 · Lock Screen</div>
+  </div>
+
+  <!-- PHONE 2: Home Screen -->
+  <div class="phone-wrap">
+    <div class="phone">
+      <div class="camera-pill">
+        <div class="camera-dot"></div>
+      </div>
+      <div class="screen">
+        <div class="phone-screen" id="homescreen">
+          <!-- Status Bar -->
+          <div class="hs-status-bar">
+            <span class="status-time" style="font-size:13px;font-weight:600;">9:41</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div class="signal-bars" style="color:#202124;">
+                <div class="bar bar-1"></div>
+                <div class="bar bar-2"></div>
+                <div class="bar bar-3"></div>
+                <div class="bar bar-4"></div>
+              </div>
+              <span style="color:#202124;font-size:11px;font-weight:500;">5G</span>
+              <div class="batt" style="color:#202124;">
+                <div class="batt-body"><div class="batt-fill"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Google Search Bar -->
+          <div class="google-search-bar">
+            <div class="g-logo">G</div>
+            <div class="search-placeholder">Search or enter address</div>
+            <div class="mic-icon">🎤</div>
+          </div>
+
+          <!-- Widgets -->
+          <div class="widget-area">
+            <div class="widget-weather">
+              <div class="widget-title">San Francisco</div>
+              <div class="widget-main">68°</div>
+              <div class="widget-sub">☁️ Partly Cloudy</div>
+            </div>
+            <div class="widget-stack">
+              <div class="widget-small">
+                <div class="ws-icon">🔋</div>
+                <div class="ws-val">87%</div>
+                <div class="ws-label">Battery</div>
+              </div>
+              <div class="widget-small">
+                <div class="ws-icon">📶</div>
+                <div class="ws-val">5G</div>
+                <div class="ws-label">Network</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- App Grid -->
+          <div class="app-grid">
+            <div class="app-icon">
+              <div class="app-icon-img" style="background: linear-gradient(135deg,#4285f4,#1a73e8);">🌐</div>
+              <div class="app-name">Chrome</div>
+            </div>
+            <div class="app-icon">
+              <div class="app-icon-img" style="background: linear-gradient(135deg,#ea4335,#c5221f);">📧</div>
+              <div class="app-name">Gmail</div>
+            </div>
+            <div class="app-icon">
+              <div class="app-icon-img" style="background: linear-gradient(135deg,#34a853,#1e8e3e);">📅</div>
+              <div class="app-name">Calendar</div>
+            </div>
+            <div class="app-icon">
+              <div class="app-icon-img" style="background: linear-gradient(135deg,#fbbc04,#f29900);">📁</div>
+              <div class="app-name">Drive</div>
+            </div>
+            <div class="app-icon">
+              <div class="app-icon-img" style="background: linear-gradient(135deg,#1a73e8,#0d47a1);">🗺️</div>
+              <div class="app-name">Maps</div>
+            </div>
+            <div class="app-icon">
+              <div class="app-icon-img" style="background: linear-gradient(135deg,#5f6368,#3c4043);">📷</div>
+              <div class="app-name">Camera</div>
+            </div>
+            <div class="app-icon">
+              <div class="app-icon-img" style="background: linear-gradient(135deg,#34a853,#137333);">📞</div>
+              <div class="app-name">Phone</div>
+            </div>
+            <div class="app-icon">
+              <div class="app-icon-img" style="background: linear-gradient(135deg,#4285f4,#1a73e8);">💬</div>
+              <div class="app-name">Messages</div>
+            </div>
+          </div>
+
+          <!-- Shelf / Dock -->
+          <div class="shelf">
+            <div class="shelf-icon">
+              <div class="shelf-icon-img" style="background:linear-gradient(135deg,#4285f4,#1a73e8);">🌐</div>
+              <div class="shelf-dot"></div>
+            </div>
+            <div class="shelf-icon">
+              <div class="shelf-icon-img" style="background:linear-gradient(135deg,#ea4335,#c5221f);">📧</div>
+            </div>
+            <div class="shelf-icon">
+              <div class="shelf-icon-img" style="background:linear-gradient(135deg,#34a853,#1e8e3e);">📞</div>
+            </div>
+            <div class="shelf-icon">
+              <div class="shelf-icon-img" style="background:#f1f3f4;">⋯</div>
+            </div>
+          </div>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+    <div class="screen-label">02 · Home / Launcher</div>
+  </div>
+
+  <!-- PHONE 3: Chrome Browser -->
+  <div class="phone-wrap">
+    <div class="phone">
+      <div class="camera-pill">
+        <div class="camera-dot"></div>
+      </div>
+      <div class="screen">
+        <div class="phone-screen" id="browserscreen">
+          <!-- Status -->
+          <div class="browser-status">
+            <span style="font-size:13px;font-weight:600;color:#202124;">9:41</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div class="signal-bars" style="color:#202124;">
+                <div class="bar bar-1"></div>
+                <div class="bar bar-2"></div>
+                <div class="bar bar-3"></div>
+              </div>
+              <div class="batt" style="color:#202124;">
+                <div class="batt-body"><div class="batt-fill"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab Bar -->
+          <div class="tab-bar">
+            <div class="tab active">
+              <span class="tab-fav">🌐</span>
+              <span>The Verge</span>
+              <div class="tab-close">✕</div>
+            </div>
+            <div class="tab inactive">
+              <span class="tab-fav">🔴</span>
+              <span style="max-width:60px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">YouTube</span>
+            </div>
+            <div style="margin-left:auto;display:flex;align-items:center;padding-bottom:4px;">
+              <div style="font-size:18px;color:#5f6368;padding:0 8px;">+</div>
+            </div>
+          </div>
+
+          <!-- Omnibox -->
+          <div class="omnibox">
+            <div class="omnibox-inner">
+              <span class="url-secure">🔒</span>
+              <div class="omnibox-url">
+                <span class="url-origin">theverge.com</span>
+                <span class="url-path">/tech</span>
+              </div>
+              <span style="font-size:16px;color:#9aa0a6;">⋮</span>
+            </div>
+          </div>
+
+          <!-- Page content -->
+          <div class="browser-content">
+            <div class="webpage-mock">
+              <!-- Hero -->
+              <div class="wm-hero">
+                <div class="wm-hero-tag">Technology · Featured</div>
+                <div class="wm-hero-title">ChromePhone OS Unveiled</div>
+              </div>
+
+              <!-- Text blocks -->
+              <div class="wm-body">
+                <div class="text-block full"></div>
+                <div class="text-block medium"></div>
+                <div class="text-block full"></div>
+                <div class="text-block short"></div>
+              </div>
+
+              <!-- Content cards -->
+              <div class="content-card">
+                <div class="cc-img" style="background:#e8f0fe;">📱</div>
+                <div class="cc-lines">
+                  <div class="cc-title"></div>
+                  <div class="cc-sub"></div>
+                </div>
+              </div>
+
+              <div class="content-card">
+                <div class="cc-img" style="background:#fce8e6;">🌐</div>
+                <div class="cc-lines">
+                  <div class="cc-title"></div>
+                  <div class="cc-sub"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom nav -->
+          <div class="browser-bottom-bar">
+            <div class="bb-btn">←</div>
+            <div class="bb-btn">→</div>
+            <div class="bb-btn">⬡</div>
+            <div class="tab-count">2</div>
+            <div class="bb-btn">⋮</div>
+          </div>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+    <div class="screen-label">03 · Chrome Browser</div>
+  </div>
+
+  <!-- PHONE 4: Quick Settings -->
+  <div class="phone-wrap">
+    <div class="phone">
+      <div class="camera-pill">
+        <div class="camera-dot"></div>
+      </div>
+      <div class="screen">
+        <div class="phone-screen" id="quicksettings">
+          <!-- Top row: time + avatar -->
+          <div class="qs-top">
+            <div>
+              <div class="qs-time">9:41</div>
+              <div class="qs-date">Thu, February 26</div>
+            </div>
+            <div class="qs-avatar">A</div>
+          </div>
+
+          <!-- Tiles -->
+          <div class="qs-tiles">
+            <div class="qs-tile active">
+              <div class="tile-icon">📶</div>
+              <div class="tile-label" style="color:#1a73e8;">Wi-Fi</div>
+            </div>
+            <div class="qs-tile active">
+              <div class="tile-icon">🔵</div>
+              <div class="tile-label" style="color:#1a73e8;">BT</div>
+            </div>
+            <div class="qs-tile">
+              <div class="tile-icon">✈️</div>
+              <div class="tile-label">Airplane</div>
+            </div>
+            <div class="qs-tile active">
+              <div class="tile-icon">🌙</div>
+              <div class="tile-label" style="color:#1a73e8;">DND</div>
+            </div>
+            <div class="qs-tile">
+              <div class="tile-icon">🔦</div>
+              <div class="tile-label">Torch</div>
+            </div>
+            <div class="qs-tile active">
+              <div class="tile-icon">🔄</div>
+              <div class="tile-label" style="color:#1a73e8;">Sync</div>
+            </div>
+            <div class="qs-tile">
+              <div class="tile-icon">📍</div>
+              <div class="tile-label">Location</div>
+            </div>
+            <div class="qs-tile">
+              <div class="tile-icon">⚙️</div>
+              <div class="tile-label">Settings</div>
+            </div>
+          </div>
+
+          <!-- Sliders -->
+          <div class="qs-slider-group">
+            <div class="slider-row">
+              <div class="slider-icon">☀️</div>
+              <div class="slider-track">
+                <div class="slider-fill" style="width:70%"></div>
+                <div class="slider-thumb" style="left:calc(70% - 9px)"></div>
+              </div>
+            </div>
+            <div class="slider-row">
+              <div class="slider-icon">🔊</div>
+              <div class="slider-track">
+                <div class="slider-fill" style="width:50%"></div>
+                <div class="slider-thumb" style="left:calc(50% - 9px)"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notifications -->
+          <div class="qs-notifications">
+            <div class="qs-notif-header">Notifications</div>
+            <div class="qs-notif">
+              <div class="qn-icon" style="background:rgba(66,133,244,0.2);">📧</div>
+              <div class="qn-content">
+                <div class="qn-title">Gmail · 3 new</div>
+                <div class="qn-body">Sarah, Marcus, and team...</div>
+              </div>
+            </div>
+            <div class="qs-notif">
+              <div class="qn-icon" style="background:rgba(52,168,83,0.2);">📅</div>
+              <div class="qn-content">
+                <div class="qn-title">Design Review</div>
+                <div class="qn-body">Starting in 15 minutes</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chrome wordmark -->
+          <div class="qs-chrome-logo">
+            <div class="chrome-ring-small"></div>
+            <div class="chrome-wordmark">ChromePhone OS</div>
+          </div>
+        </div>
+        <div class="home-indicator light"></div>
+      </div>
+    </div>
+    <div class="screen-label">04 · Quick Settings</div>
+  </div>
+
+  <!-- PHONE 5: App Switcher -->
+  <div class="phone-wrap">
+    <div class="phone">
+      <div class="camera-pill">
+        <div class="camera-dot"></div>
+      </div>
+      <div class="screen">
+        <div class="phone-screen" id="overviewscreen">
+
+          <div class="overview-label">Recent Apps</div>
+
+          <div class="overview-cards">
+            <!-- Card 1: Chrome -->
+            <div class="ov-card">
+              <div class="ov-card-header">
+                <div class="ov-favicon">🌐</div>
+                <div class="ov-title">The Verge — Chrome</div>
+                <div class="ov-close">✕</div>
+              </div>
+              <div class="ov-preview">
+                <div class="ov-img" style="background:linear-gradient(135deg,#1a73e8,#0d47a1);">🌐<span style="color:rgba(255,255,255,0.8);font-size:13px;margin-left:6px;">theverge.com</span></div>
+                <div class="ov-tb" style="width:80%;"></div>
+                <div class="ov-tb" style="width:60%;"></div>
+              </div>
+            </div>
+
+            <!-- Card 2: Gmail -->
+            <div class="ov-card">
+              <div class="ov-card-header">
+                <div class="ov-favicon">📧</div>
+                <div class="ov-title">Gmail — Inbox</div>
+                <div class="ov-close">✕</div>
+              </div>
+              <div class="ov-preview" style="background:#fff0ee;">
+                <div class="ov-img" style="background:linear-gradient(135deg,#ea4335,#c5221f);color:white;">📧 <span style="font-size:13px;">inbox (3)</span></div>
+                <div class="ov-tb" style="width:90%;background:#f5c6c3;"></div>
+                <div class="ov-tb" style="width:70%;background:#f5c6c3;"></div>
+              </div>
+            </div>
+
+            <!-- Card 3: Maps -->
+            <div class="ov-card">
+              <div class="ov-card-header">
+                <div class="ov-favicon">🗺️</div>
+                <div class="ov-title">Google Maps</div>
+                <div class="ov-close">✕</div>
+              </div>
+              <div class="ov-preview" style="background:#e6f4ea;">
+                <div class="ov-img" style="background:linear-gradient(135deg,#34a853,#137333);color:white;">🗺️ <span style="font-size:13px;">San Francisco, CA</span></div>
+                <div class="ov-tb" style="width:55%;background:#a8d5b5;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom dock in overview -->
+          <div class="ov-dock">
+            <div class="ov-dock-icon">🌐</div>
+            <div class="ov-dock-icon">📧</div>
+            <div class="ov-dock-icon" style="background:rgba(255,255,255,0.25);">⬡</div>
+            <div class="ov-dock-icon">📞</div>
+          </div>
+        </div>
+        <div class="home-indicator light"></div>
+      </div>
+    </div>
+    <div class="screen-label">05 · App Switcher</div>
+  </div>
+
+</div>
+
+<!-- Legend Panel -->
+<div class="legend">
+  <div class="legend-title">ChromePhone OS<br>Concept Design</div>
+  <div class="legend-sub">A speculative UI/UX exploration of what a Google phone OS might look like if built entirely around Chrome OS principles — web-first, Google account–centric, and browser-native — without Android ever existing.</div>
+
+  <div class="legend-item" style="border-color:#4285f4;">
+    <div class="li-label" style="color:#4285f4;">Philosophy</div>
+    <div class="li-desc">Everything runs as a web app inside Chrome. Native apps are PWAs (Progressive Web Apps). The browser IS the OS shell.</div>
+  </div>
+
+  <div class="legend-item" style="border-color:#34a853;">
+    <div class="li-label" style="color:#34a853;">Shelf / Dock</div>
+    <div class="li-desc">Borrowed from Chrome OS desktop. Pinned apps live at the bottom, inspired by the Chromebook taskbar rather than Android's dock.</div>
+  </div>
+
+  <div class="legend-item" style="border-color:#ea4335;">
+    <div class="li-label" style="color:#ea4335;">Chrome Tabs on Mobile</div>
+    <div class="li-desc">Multi-tab browsing is first-class. The tab strip appears in-browser. Switching tabs = switching "apps."</div>
+  </div>
+
+  <div class="legend-item" style="border-color:#fbbc04;">
+    <div class="li-label" style="color:#fbbc04;">Google Account as Identity</div>
+    <div class="li-desc">Profile avatar replaces the standard user icon. Cloud sync is always-on. Settings sync across all Chrome devices.</div>
+  </div>
+
+  <div class="legend-item" style="border-color:#9aa0a6;">
+    <div class="li-label" style="color:#9aa0a6;">Material You (Adapted)</div>
+    <div class="li-desc">Google's design language applied to a Chrome-native context: rounded tiles, elevation shadows, the four Chrome brand colors used as system accents.</div>
+  </div>
+
+  <div class="chrome-colors-demo">
+    <div class="cc-dot" style="background:#4285f4;"></div>
+    <div class="cc-dot" style="background:#ea4335;"></div>
+    <div class="cc-dot" style="background:#fbbc04;"></div>
+    <div class="cc-dot" style="background:#34a853;"></div>
+    <span style="color:rgba(255,255,255,0.3);font-size:11px;margin-left:4px;">Chrome brand palette</span>
+  </div>
+</div>
+
+</body>
+</html>
